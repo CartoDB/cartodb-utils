@@ -8,7 +8,7 @@ module CartoDBUtils
       EVENT_AGGREGATION_TEMPLATE = <<-EOS
       WITH upsert AS (
         UPDATE events 
-        SET VALUE=##VALUE##
+        SET value=##VALUE##
         WHERE timestamp='##TIMESTAMP##'
         AND tags='##TAGS##' 
         RETURNING *
