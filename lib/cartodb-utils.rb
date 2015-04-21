@@ -24,7 +24,7 @@ module CartoDBUtils
       method: http_method.to_sym,
       body: body,
       params: params,
-      header: headers
+      headers: headers
     )
     response = request.run
     if expected_responses.include?(response.code)

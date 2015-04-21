@@ -6,7 +6,6 @@ module CartoDBUtils
       ELASTICSEARCH_PATH = "/_search" 
 
       def initialize(options = {})
-        puts options
         @elasticsearch_ip = options[:elasticsearch_ip]
         @elasticsearch_port = options[:elasticsearch_port] || '9200'
         @elasticsearch_url = "http://#{@elasticsearch_ip}:#{@elasticsearch_port}#{ELASTICSEARCH_PATH}"
