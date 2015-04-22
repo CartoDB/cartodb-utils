@@ -15,8 +15,8 @@ module CartoDBUtils
     http_method = extra_options[:http_method] || :get
     if http_method == :post
       body = extra_options[:body] || nil
-      params = extra_options[:params] || nil
     end
+    params = extra_options[:params] || nil
     headers = extra_options[:headers] || nil
     expected_responses = extra_options[:expected_responses] || [200]
     request = Typhoeus::Request.new(
