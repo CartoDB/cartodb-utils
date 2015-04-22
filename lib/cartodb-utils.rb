@@ -1,4 +1,5 @@
 require_relative 'cartodb-utils/metrics.rb'
+require_relative 'cartodb-utils/mail.rb'
 require 'json/ext'
 require 'openssl'
 require 'json'
