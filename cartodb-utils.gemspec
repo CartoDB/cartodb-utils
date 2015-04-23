@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'cartodb-utils'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.date        = '2015-04-20'
   s.summary     = "Ruby CartoDB utils"
   s.description = "Ruby CartoDB utils"

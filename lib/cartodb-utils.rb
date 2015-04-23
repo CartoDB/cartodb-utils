@@ -4,6 +4,7 @@ require 'json/ext'
 require 'openssl'
 require 'json'
 require 'typhoeus'
+require 'date'
 
 OpenSSL::SSL.send :remove_const, :VERIFY_PEER
 OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
@@ -38,6 +39,17 @@ module CartoDBUtils
         raise(response.body)
       end
     end
+  end
+
+  # interval must be in hours
+  # end_time must be a datetime
+  def self.format_period(interval, end_time = nil)
+    if end_time.nil?
+      end_time = DateTime.now
+    end
+    from = DateTime.parse((end_time - interval.to_f/24.0).strftime("%Y-%m-%d %H:00:00"))
+    to = DateTime.parse(end_time.strftime("%Y-%m-%d %H:00:00"))
+    return [from, to]
   end
 
 end
