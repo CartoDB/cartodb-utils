@@ -17,6 +17,20 @@ module CartoDBUtils
         SELECT '##TIMESTAMP##', ##VALUE##, '##TAGS##' 
         WHERE NOT EXISTS (SELECT * FROM upsert);
       EOS
+      
+      GAUGE_AGGREGATION_TEMPLATE = <<-EOS
+      WITH upsert AS (
+        UPDATE gauges
+        SET value=##VALUE##
+        WHERE timestamp='##TIMESTAMP##'
+        AND tags='##TAGS##' 
+        RETURNING *
+      )
+      INSERT INTO gauges (timestamp, value, tags) 
+        SELECT '##TIMESTAMP##', ##VALUE##, '##TAGS##' 
+        WHERE NOT EXISTS (SELECT * FROM upsert);
+      EOS
+
 
       def initialize(options = {})
         @api_key = options[:api_key]
