@@ -20,6 +20,13 @@ module CartoDBUtils
             "to" => email_data["to"].map {|e| {'email' => e}}
           }
         }
+        if email_data["body_html"]
+          message_data["message"]["html"] = email_data["body_html"]
+        end
+        if email_data["body_text"]
+          message_data["message"]["text"] = email_data["body_text"]
+        end
+
         response_code, body = CartoDBUtils.http_request(
                                 MANDRILL_URL, 
                                 1, 
