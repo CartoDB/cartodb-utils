@@ -56,7 +56,7 @@ module CartoDBUtils
         AND service='##SERVICE##'
         RETURNING *
       )
-      INSERT INTO service_status (timestamp, cloud_name, host_group, host, service, service_status)
+      INSERT INTO service_status (timestamp, cloud_name, host_group, host, service, value)
         SELECT '##TIMESTAMP##', '##CLOUD_NAME##', '##HOST_GROUP##', '##HOST##', '##SERVICE##', ##SERVICE_STATUS##
         WHERE NOT EXISTS (SELECT * FROM upsert);
       EOS
