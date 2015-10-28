@@ -31,6 +31,35 @@ module CartoDBUtils
         WHERE NOT EXISTS (SELECT * FROM upsert);
       EOS
 
+      SLA_AGGREGATION_TEMPLATE = <<-EOS
+      WITH upsert AS (
+        UPDATE sla
+        SET value=##VALUE##
+        WHERE timestamp='##TIMESTAMP##'
+        AND username='##USERNAME##'
+        AND type='##TYPE##'
+        RETURNING *
+      )
+      INSERT INTO sla (timestamp, username, type, value)
+        SELECT '##TIMESTAMP##', '##USERNAME##', '##TYPE##', ##VALUE##
+        WHERE NOT EXISTS (SELECT * FROM upsert);
+      EOS
+
+      SERVICE_STATUS_AGGREGATION_TEMPLATE = <<-EOS
+      WITH upsert AS (
+        UPDATE service_status
+        SET value=##SERVICE_STATUS##
+        WHERE timestamp='##TIMESTAMP##'
+        AND cloud_name='##CLOUD_NAME##'
+        AND host_group='##HOST_GROUP##'
+        AND host='##HOST##'
+        AND service='##SERVICE##'
+        RETURNING *
+      )
+      INSERT INTO service_status (timestamp, cloud_name, host_group, host, service, value)
+        SELECT '##TIMESTAMP##', '##CLOUD_NAME##', '##HOST_GROUP##', '##HOST##', '##SERVICE##', ##SERVICE_STATUS##
+        WHERE NOT EXISTS (SELECT * FROM upsert);
+      EOS
 
       def initialize(options = {})
         @api_key = options[:api_key]
